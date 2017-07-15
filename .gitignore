@@ -22,3 +22,5 @@
 
 # My
 _misc/
+/public/cache
+/public/assets
