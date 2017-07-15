@@ -1,24 +1,11 @@
-# README
+# Rails Fullpage Cache
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Project setup
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```sh
+rails g model Author name:string age:integer email:string
+rails g model Post title:string description:text author:belongs_to category:string dt:datetime position:float published:boolean
+rails g model Detail description:text author:belongs_to
+rails g model Tag name:string
+rails g model PostTag post:belongs_to tag:belongs_to
+```
