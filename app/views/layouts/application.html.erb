@@ -7,10 +7,11 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <script>
-    function do_update() {
+    function do_update( target ) {
       $.ajax({
         url: '<%= update_path( ctrl: controller_name, act: action_name ) %>'
       }).success(function( response ) {
+        console.log( response );
         // apply csrf token
         $('[name="csrf-token"]').attr( 'content', response.authenticity_token );
         $('[name="authenticity_token"]').val( response.authenticity_token );
@@ -27,13 +28,38 @@
             $(key).html( response.set[key] );
           }
         }
+
+        // target.data( 'continue', 1 );
+        target.trigger( 'click' );
       });
     }
 
     $(document).ready( function() {
-      do_update(); // call update endpoint
+      // do_update(); // call update endpoint
+
+      $('[data-btn="submit"]').on('click', function() {
+        do_update( $('#form-submit') );
+      });
+      /* $('[data-method="delete"]').on('click', function( event ) {
+        if( !$(this).data( 'continue' ) )
+        {
+          console.log( '1' );
+          event.preventDefault();
+          event.stopPropagation();
+          do_update( $(this) );
+        }
+        else {
+          console.log( '2' );
+        }
+      }); */
+
       // forms setup
       $('[data-remote]').on('ajax:before', function() {
+        // console.log( $('[name="csrf-token"]'), $('[name="authenticity_token"]') );
+        // do_update( $('#ignore') );
+        // console.log( $('[name="csrf-token"]'), $('[name="authenticity_token"]') );
+        // debugger;
+
         $('#status .info').each( function() {
           $(this).remove();
         });

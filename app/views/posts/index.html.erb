@@ -22,7 +22,13 @@
         <td><%= post.updated_at %></td>
         <td><%= link_to 'Show', post %></td>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, remote: true, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= form_with(model: post, remote: true, method: :delete) do |form| %>
+            <%= form.hidden_field :id %>
+            <%= form.submit 'Destroy', id: 'form-submit', style: 'display: none' %>
+            <%= button_tag 'Destroy!', 'data-btn': 'submit', type: :button %>
+          <% end %>
+        <%= link_to 'Destroy', post, method: :delete, remote: true, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
