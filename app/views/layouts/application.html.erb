@@ -7,7 +7,7 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <script>
-    function do_update() {
+    /* function do_update() {
       $.ajax({
         url: '<%= update_path( ctrl: controller_name, act: action_name ) %>'
       }).success(function( response ) {
@@ -28,10 +28,12 @@
           }
         }
       });
-    }
+    } */
 
     $(document).ready( function() {
-      do_update(); // call update endpoint
+      Barba.Pjax.start();
+
+      /* do_update(); // call update endpoint
       // forms setup
       $('[data-remote]').on('ajax:before', function() {
         $('#status .info').each( function() {
@@ -46,15 +48,19 @@
             $('#status').append( '<p class="info"><b>' + property + '</b>: ' + e.detail[0][property] + '</p>' );
           }
         }
-      });
+      }); */
     });
     </script>
   </head>
 
   <body>
-    <div id="flash"></div>
-    <div id="special"></div>
-    <div id="status"></div>
-    <%= yield %>
+    <div id="barba-wrapper">
+      <div class="barba-container">
+        <div id="flash"></div>
+        <div id="special"></div>
+        <div id="status"></div>
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
