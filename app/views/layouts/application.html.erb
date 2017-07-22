@@ -7,10 +7,11 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <script>
-    /* function do_update() {
+    function do_update() {
       $.ajax({
         url: '<%= update_path( ctrl: controller_name, act: action_name ) %>'
       }).success(function( response ) {
+        console.log( response );
         // apply csrf token
         $('[name="csrf-token"]').attr( 'content', response.authenticity_token );
         $('[name="authenticity_token"]').val( response.authenticity_token );
@@ -28,12 +29,16 @@
           }
         }
       });
-    } */
+    }
 
     $(document).ready( function() {
       Barba.Pjax.start();
+      Barba.Dispatcher.on('transitionCompleted', function() {
+        do_update(); // call update endpoint
+      });
+      do_update(); // call update endpoint
 
-      /* do_update(); // call update endpoint
+      /*
       // forms setup
       $('[data-remote]').on('ajax:before', function() {
         $('#status .info').each( function() {
