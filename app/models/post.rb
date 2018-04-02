@@ -2,7 +2,7 @@ class Post < ApplicationRecord
   after_save :update_cache
   after_destroy :remove_from_cache
 
-  belongs_to :author
+  belongs_to :author, optional: true
 
   validates :title, presence: true, allow_blank: false
 
